@@ -36,7 +36,7 @@ FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "0"))
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
-IMG_URL = os.environ.get("IMG_URL", "https://telegra.ph/file/7de5ca78e3963506bddfd.jpg"))
+IMG_URL = os.environ.get("IMG_URL", "https://telegra.ph/file/7de5ca78e3963506bddfd.jpg")
                              
 #start message
 START_MSG = os.environ.get("START_MESSAGE", "Hello {mention}!\n\nI can send you ONLY FANS files & videos from @ZENUPDATESS.")
