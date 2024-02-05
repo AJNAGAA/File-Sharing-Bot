@@ -76,7 +76,7 @@ async def start_command(client: Client, message: Message):
                 reply_markup = None
                 
             # Add image URL for the start message
-            img_url = "https://telegra.ph/file/7de5ca78e3963506bddfd.jpg"
+            img_url = ""
             
             try:
                 await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT,photo=img_url)
@@ -98,7 +98,7 @@ async def start_command(client: Client, message: Message):
         )
         
         # Add image URL for the start message
-            img_url = "https://telegra.ph/file/7de5ca78e3963506bddfd.jpg"
+            img_url = ""
 
         await message.reply_photo(
             photo=img_url,
