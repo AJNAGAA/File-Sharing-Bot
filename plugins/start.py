@@ -11,7 +11,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 
 from bot import Bot
-from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT, IMG_URL
+from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
@@ -74,16 +74,13 @@ async def start_command(client: Client, message: Message):
                 reply_markup = msg.reply_markup
             else:
                 reply_markup = None
-                
-            # Add image URL for the start message
-            img_url = ""
-            
+
             try:
-                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT,photo=img_url)
+                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
                 await asyncio.sleep(0.5)
             except FloodWait as e:
                 await asyncio.sleep(e.x)
-                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT,photo=img_url)
+                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
             except:
                 pass
         return
@@ -94,10 +91,26 @@ async def start_command(client: Client, message: Message):
                     InlineKeyboardButton("About Me", callback_data = "about"),
                     InlineKeyboardButton("Close", callback_data = "close")
                 ]
-            ]
+                        ]
         )
         
-        
+        # Add image URL for the start message
+            img_url = "https://telegra.ph/file/7de5ca78e3963506bddfd.jpg"
+
+        await message.reply_photo(
+            photo=IMG_URL,
+            caption= START_MSG.format(
+                first = message.from_user.first_name,
+                last = message.from_user.last_name,
+                username = None if not message.from_user.username else '@' + message.from_user.username,
+                mention = message.from_user.mention,
+                id = message.from_user.id
+            ),
+            reply_markup = reply_markup,
+            disable_web_page_preview = True,
+            quote = True
+        )
+        return
     
 #=====================================================================================##
 
@@ -124,26 +137,7 @@ async def not_joined(client: Client, message: Message):
                 InlineKeyboardButton(
                     text = 'Try Again',
                     url = f"https://t.me/{client.username}?start={message.command[1]}"
-                          ]
-        )
-        
-        # Add image URL for the start message
-         img_url = "https://telegra.ph/file/7de5ca78e3963506bddfd.jpg"
-
-        await message.reply_photo(
-            photo=IMG_URL,
-            caption= START_MSG.format(
-                first = message.from_user.first_name,
-                last = message.from_user.last_name,
-                username = None if not message.from_user.username else '@' + message.from_user.username,
-                mention = message.from_user.mention,
-                id = message.from_user.id
-            ),
-            reply_markup = reply_markup,
-            disable_web_page_preview = True,
-            quote = True
-        )
-        return  )
+                )
             ]
         )
     except IndexError:
