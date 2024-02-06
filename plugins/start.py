@@ -117,16 +117,13 @@ WAIT_MSG = """"<b>Processing ...</b>"""
 REPLY_ERROR = """<code>Use this command as a replay to any telegram message with out any spaces.</code>"""
 
 #=====================================================================================##
-
-    
     
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
     buttons = [
         [
-            InlineKeyboardButton(
-                "Join Channel",
-                url = client.invitelink)
+            InlineKeyboardButton(text="Join Channel", url=client.invitelink),
+            InlineKeyboardButton(text="Join Channel", url=client.invitelink2),
         ]
     ]
     try:
